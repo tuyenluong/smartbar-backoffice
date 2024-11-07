@@ -1,11 +1,40 @@
 openapi: 3.0.3
 info:
   title: Smartbar Backoffice API
-  description: Smartbar Backoffice API (only used by Orderclient))
+  description: Smartbar Backoffice API (only used by Orderclient)
   version: 1.0.0
 servers:
   - url: 'https'
 paths:
+  /categories:
+    get:
+      description: Gets all categories
+      operationId: getAllCategories
+      responses:
+        200:
+          description: Get all categories successfully
+          content:
+            application/json:
+              schema:
+                type: array,
+                items:
+                  $ref: "#/components/schemas/category"
+    post:
+      requestBody:
+        content:
+          application:json:
+            schema:
+              $ref: "#/components/schemas/category"
+      responses:
+        201:
+          $ref: "#/components/responses/201"
+
+#  /categories/{categoryId}:
+#  /articles:
+#  /articles/{articleId}:
+#  /tables:
+#  /tables/{tabelId}:
+
   /menu:
     get:
       description: Gets the menu (all articles in all categories)
@@ -49,3 +78,9 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ApiCategory"
+    category:
+  responses:
+    201:
+#    category:
+#  responses:
+#    201:
