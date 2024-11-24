@@ -3,64 +3,199 @@ info:
   title: Smartbar Backoffice API
   description: Smartbar Backoffice API (only used by Orderclient)
   version: 1.0.0
-servers:
-  - url: 'https'
 paths:
   /categories:
     get:
-      description: Gets all categories
-      operationId: getAllCategories
+      tags:
+        - Categories
       responses:
         200:
-          description: Get all categories successfully
+          description: Success
           content:
             application/json:
               schema:
-                type: array,
+                type: array
                 items:
                   $ref: "#/components/schemas/category"
     post:
+      tags:
+        - Categories
       requestBody:
         content:
-          application:json:
+          application/json:
             schema:
               $ref: "#/components/schemas/category"
       responses:
         201:
           $ref: "#/components/responses/201"
-
-#  /categories/{categoryId}:
-#  /articles:
-#  /articles/{articleId}:
-#  /tables:
-#  /tables/{tabelId}:
-
-  /menu:
-    get:
-      description: Gets the menu (all articles in all categories)
-      operationId: getMenu
+  /categories/{categoryId}:
+    parameters:
+      - name: categoryId
+        schema:
+          type: string
+        in: path
+    put:
+      tags:
+        - Categories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/category"
       responses:
         200:
-          description: Reponse body contains the menu
+          description: Entity successfully updated
+    delete:
+      tags:
+        - Categories
+      responses:
+        200:
+          description: Entity successfully deleted
+    get:
+      tags:
+        - Categories
+      responses:
+        200:
+          description: Success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApiMenu"
+                $ref: "#/components/schemas/category"
+  /articles:
+    get:
+      tags:
+        - Articles
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/article"
+    post:
+      tags:
+        - Articles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/article"
+      responses:
+        201:
+          $ref: "#/components/responses/201"
+  /articles/{articleId}:
+    parameters:
+      - name: articleId
+        schema:
+          type: string
+        in: path
+    put:
+      tags:
+        - Articles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/article"
+      responses:
+        200:
+          description: Entity successfully updated
+    delete:
+      tags:
+        - Articles
+      responses:
+        200:
+          description: Entity successfully deleted
+    get:
+      tags:
+        - Articles
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/article"
+  /tables:
+    get:
+      tags:
+        - Tables
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/table"
+    post:
+      tags:
+        - Tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/table"
+      responses:
+        201:
+          $ref: "#/components/responses/201"
+  /tables/{tableId}:
+    parameters:
+      - name: tableId
+        schema:
+          type: string
+        in: path
+    put:
+      tags:
+        - Tables
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/table"
+      responses:
+        200:
+          description: Entity successfully updated
+    delete:
+      tags:
+        - Tables
+      responses:
+        200:
+          description: Entity successfully deleted
+    get:
+      tags:
+        - Tables
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/table"
+  /menu:
+    get:
+      tags:
+        - Menu
+      responses:
+        200:
+          description: Response body contains the menu
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/menu"
 components:
   schemas:
-    ApiArticle:
+    menu:
       type: object
       properties:
-        name:
-          type: string
-        description:
-          type: string
-        price:
-          type: number
-          format: double
-        picture:
-          type: string
-    ApiCategory:
+        categories:
+          type: array
+          items:
+            $ref: "#/components/schemas/category"
+    category:
       type: object
       properties:
         name:
@@ -70,17 +205,30 @@ components:
         articles:
           type: array
           items:
-            $ref: "#/components/schemas/ApiArticle"
-    ApiMenu:
+            $ref: "#/components/schemas/article"
+    article:
       type: object
       properties:
-        categories:
-          type: array
-          items:
-            $ref: "#/components/schemas/ApiCategory"
-    category:
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        picture:
+          type: string
+    table:
+      type: object
+      properties:
+        name:
+          type: string,
+        seatCount:
+          type: string,
+        active:
+          type: boolean
   responses:
     201:
-#    category:
-#  responses:
-#    201:
+      description: Entity successfully created
+      headers:
+        Location:
+          description: Entity successfully created
