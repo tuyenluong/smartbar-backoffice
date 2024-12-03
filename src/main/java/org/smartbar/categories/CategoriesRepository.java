@@ -1,4 +1,4 @@
 package org.smartbar.categories;
 
-public class CategoriesRepository {
+public interface CategoriesRepository {
 }

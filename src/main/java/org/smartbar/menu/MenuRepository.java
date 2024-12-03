@@ -1,4 +1,4 @@
 package org.smartbar.menu;
 
-public class MenuRepository {
+public interface MenuRepository {
 }
